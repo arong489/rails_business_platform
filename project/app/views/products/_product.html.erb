@@ -1,0 +1,47 @@
+<div id="<%= dom_id product %>">
+  <p>
+    <strong>Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= product.price %>
+  </p>
+
+  <p style = "display: inline-block; margin-right: 20px; float: left">
+    <strong>Design:</strong>
+    <%= product.design.name %>
+  </p>
+
+  <p style = "display: inline-block; margin-right: 20px; float: left">
+    <strong>Color:</strong>
+    <%= product.color.description %>
+  </p>
+
+  <p style = "display: inline-block; margin-right: 20px; float: left">
+    <strong>Size:</strong>
+    <%= product.size.name %>
+  </p>
+
+  <p style = "display: inline-block;">
+    <strong>Type:</strong>
+    <%= product.type.description %>
+  </p>
+
+  <div style = "display: none"></div>
+
+  <p>
+    <strong>Description:</strong>
+    <pre><%= product.description %></pre>
+  </p>
+
+  <p>
+    <strong>Sales volume:</strong>
+    <%= product.sales_volume %>
+  </p>
+
+  <%= image_tag product.img.attached? ? url_for(product.img) : "", alt: :product_image%>
+
+
+</div>

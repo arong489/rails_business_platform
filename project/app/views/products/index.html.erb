@@ -1,0 +1,38 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Products</h1>
+<%= form_tag '/cart_items' do %>
+  <div id="products">
+    <% @products.each do |product| %>
+      <div class = "list_product">
+        <div class = "list_product_img">
+          <%if current_user and current_user.role == "admin"%>
+              <%= link_to "✖", product_path(product), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: :delete_product_block %>
+              <%= link_to "edit", edit_product_path(product), class: :edit_button%>
+          <%else%>
+
+            <%if current_user and current_user.favorite_products.exists?(product.id)%>
+              <%= link_to "❤", new_favorites_path(product), data:{turbo_method: :delete}, class: :like, style: "color: red"%>
+            <%else%>
+              <%= link_to "❤", delete_favorites_path(product), data:{turbo_method: :post}, class: :like, style: "color: #8e8d8d"%>
+            <%end%>
+            <%= number_field_tag "cart_items[#{product.id}]", 0, min: 0, class: :select_product_num, oninput: "this.style.width = (this.value.length + 2 )+'ch'" %>
+          <%end%>
+          <%= image_tag product.img.attached? ? url_for(product.img) : "", alt: "no image"%>
+        </div>
+        <%= link_to product.name, product, class: :title_link%>
+        <div class = "list_product_prev">
+          <strong>Price: </strong><%= product.price%><br>
+          <%= product.created_at.strftime("%Y/%m/%d")%>
+          <pre><%=product.description%></pre>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% if not current_user or current_user.role != "admin" %>
+    <%= submit_tag "加入购物车", class: :bottom_button%>
+  <%end%>
+<% end %>
+<%if current_user and current_user.role == "admin"%>
+<%= link_to "添加商品", new_product_path , class: :bottom_button%>
+<%end%>

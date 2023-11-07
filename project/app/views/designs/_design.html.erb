@@ -1,0 +1,16 @@
+<div id="<%= dom_id design %>">
+  <p>
+    <strong>Name:</strong><br>
+    <%= design.name %>
+  </p>
+
+  <p>
+    <strong>Salesvolume:</strong>
+    <%if design.products.size > 0%>
+      <%= design.products.inject(0){|total_sales_volume, product| total_sales_volume + product.sales_volume}%>
+    <%else%>
+      <p>0</p>
+    <%end%>
+  </p>
+
+</div>

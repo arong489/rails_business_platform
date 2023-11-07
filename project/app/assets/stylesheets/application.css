@@ -1,15 +1,238 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
  *= require_self
  */
+
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+}
+
+.add_button {
+    display: inline;
+    text-decoration: none;
+    background-color: #efefef;
+    color: black;
+    border-radius: 30px;
+    padding: 0px 4.5px;
+    text-align: -webkit-center;
+    border-style: solid;
+    border-width: 1px;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+    overflow: hidden;
+    text-align: center;
+}
+
+.bar_user {
+    background-color: black;
+    float: right;
+}
+
+nav ul li {
+    float: left;
+    display: block;
+    color: white;
+     :hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+        color: black;
+    }
+}
+
+nav ul li a {
+    padding: 20px 20px;
+    color: white;
+    display: block;
+    text-decoration: none;
+}
+
+.list_product {
+    display: inline-block;
+    position: relative;
+    width: 270px;
+    aspect-ratio: 2/3;
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px #8e8d8d;
+    background-color: #fff;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.list_product_img {
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+}
+
+.list_product_img img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.title_link {
+    display: block;
+    left: 50%;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-weight: normal;
+    font-size: xx-large;
+    text-align: center;
+    word-wrap: break-word;
+    background-color: transparent;
+}
+
+.title_link:hover {
+    text-decoration: underline;
+}
+
+.list_product_prev {
+    display: block;
+    margin: 10px;
+}
+
+.select_product_num {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    width: 3ch;
+}
+
+.like {
+    /* color: #8e8d8d; */
+    font-size: 2.5ch;
+    cursor: pointer;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    padding: 0;
+    margin: 6px;
+    text-decoration: none;
+}
+
+.delete_product_block {
+    color: black;
+    font-size: 20px;
+    aspect-ratio: 1;
+    line-height: 75%;
+    border: solid black;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 0;
+    top: 0%;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.delete_product_block:hover {
+    color: white;
+    border-color: rgb(147, 142, 142);
+    background-color: rgb(147, 142, 142);
+}
+
+.edit_button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    border: solid;
+}
+
+.edit_button:hover {
+    color: white;
+    border-color: rgb(147, 142, 142);
+    background-color: rgb(147, 142, 142);
+}
+
+.bottom_button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: larger;
+    text-decoration: none;
+    background-color: gray;
+    color: white;
+    border: solid;
+    padding: 10px;
+    border-radius: 15px;
+    border-color: grey;
+}
+
+.bottom_button:hover {
+    color: grey;
+    background-color: white;
+}
+
+.list_cart_block {
+    display: block;
+    position: relative;
+    border: solid black;
+    height: 300px;
+    overflow: hidden;
+    margin: 25px;
+}
+
+.list_cart_block .cart_img_block {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 5/4;
+    height: 100%;
+}
+
+.list_cart_block .cart_img_block img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.list_cart_block .cart_text_block {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    border-left: solid grey;
+    height: 100%;
+}
+
+.bottom_bar {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    font-size: larger;
+    text-decoration: none;
+    background-color: gray;
+    color: white;
+    padding: 10px;
+}

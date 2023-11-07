@@ -1,0 +1,19 @@
+<h1>Favorites</h1>
+<%unless @favorite_products.empty?%>
+    <% @favorite_products.each do |product|%>
+      <div class = "list_product">
+        <div class = "list_product_img">
+          <%= link_to "✖", new_favorites_path(product), data: {turbo_method: :delete}, class: :delete_product_block%>
+          <%= image_tag product.img.attached? ? url_for(product.img) : "", alt: "no image"%>
+        </div>
+        <%= link_to product.name, product, class: :title_link%>
+        <div class = "list_product_prev">
+          <strong>Price: </strong><%= product.price%><br>
+          <%= product.created_at.strftime("%Y/%m/%d")%>
+          <pre><%=product.description%></pre>
+        </div>
+      </div>
+    <%end%>
+<%else%>
+    <div class = "empty_inf_div">空空如也</div>
+<%end%>

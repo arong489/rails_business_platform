@@ -24,6 +24,7 @@
 ### 实体表
 
 1. users
+
    | property | type    | constrain        |
    | -------- | ------- | ---------------- |
    | id       | integer | primary key      |
@@ -33,42 +34,48 @@
    | email    | string  | not null, unique |
    | phone    | string  | not null, unique |
 2. products
+
    | property     | type    | constrain   |
    | ------------ | ------- | ----------- |
    | id           | integer | primary key |
    | name         | string  | not null    |
    | price        | decimal | not null    |
    | description  | text    |             |
-   | img          | blob?   |             |
-   | sales_volume | integer | $\ge$ 0   |
+   | img          | blob?   | attach      |
+   | sales_volume | integer | $\ge$ 0     |
    | design_id    | integer | foreign key |
    | color_id     | integer | foreign key |
    | size_id      | integer | foreign key |
    | type_id      | integer | foreign key |
 3. designs
+
    | property     | type    | constrain        |
    | ------------ | ------- | ---------------- |
    | id           | integer | primary key      |
    | name         | string  | not null         |
    | sales_volume | integer | virtual property |
 4. colors
+
    | property    | type    | constrain   |
    | ----------- | ------- | ----------- |
    | id          | integer | primary key |
    | rgb         | string  | #rrggbb     |
    | description | text    |             |
 5. sizes
+
    | property    | type    | constrain   |
    | ----------- | ------- | ----------- |
    | id          | integer | primary key |
    | name        | string  | not null    |
    | description | text    |             |
 6. types
+
    | property | type    | constrain   |
    | -------- | ------- | ----------- |
    | id       | integer | primary key |
    | name     | string  | not null    |
 7. transaction_orders
+
    | property          | type    | constrain                            |
    | ----------------- | ------- | ------------------------------------ |
    | id                | integer | primary key                          |
@@ -83,23 +90,26 @@
 ### 实体关系表
 
 1. transaction_items
+
    | property   | type    | constrain   |
    | ---------- | ------- | ----------- |
    | id         | integer | primary key |
    | order_id   | integer | foreign key |
    | product_id | integer | foreign key |
-   | number     | integer | $\ge$ 1   |
+   | number     | integer | $\ge$ 1     |
 2. cart_items
-   | property | type    | constrain   |
-   | -------- | ------- | ----------- |
-   | user_id  | integer | foreign key |
-   | product  | integer | foreign key |
-   | quantity | integer | $\ge$ 1   |
+
+   | property   | type    | constrain   |
+   | ---------- | ------- | ----------- |
+   | user_id    | integer | foreign key |
+   | product_id | integer | foreign key |
+   | quantity   | integer | $\ge$ 1     |
 3. favorites_items
-   | property | type    | constrain   |
-   | -------- | ------- | ----------- |
-   | user_id  | integer | foreign key |
-   | product  | integer | foreign key |
+
+   | property   | type    | constrain   |
+   | ---------- | ------- | ----------- |
+   | user_id    | integer | foreign key |
+   | product_id | integer | foreign key |
 
 ### 实体关系
 

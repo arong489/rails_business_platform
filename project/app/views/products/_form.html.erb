@@ -1,0 +1,61 @@
+<%= form_with(model: product) do |form| %>
+  <% if product.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% product.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div style="float: left; margin-right: 20px">
+    <%= form.label :design_id, style: "display: block" %>
+    <%= form.collection_select :design_id, Design.all, :id, :name%>
+    <%= link_to "+", new_design_path, class: :add_button %>  
+  </div>
+
+  <div style="float: left; margin-right: 20px">
+    <%= form.label :color_id, style: "display: block" %>
+    <%= form.collection_select :color_id, Color.all, :id, :description %>
+    <%= link_to "+", new_color_path, class: :add_button %>
+  </div>
+
+  <div style="float: left; margin-right: 20px">
+    <%= form.label :size_id, style: "display: block" %>
+    <%= form.collection_select :size_id, Size.all, :id, :name %>
+    <%= link_to "+", new_size_path, class: :add_button %>
+  </div>
+
+  <div>
+    <%= form.label :type_id, style: "display: block" %>
+    <%= form.collection_select :type_id, Type.all, :id, :name %>
+    <%= link_to "+", new_type_path, class: :add_button %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description, size: '100x17' %>
+  </div>
+
+  <div>
+    <%= form.label :image, style: "display: block" %>
+    <%= form.file_field :img %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
