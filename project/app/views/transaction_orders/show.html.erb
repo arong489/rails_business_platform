@@ -1,0 +1,11 @@
+<%= render @transaction_order %>
+
+<strong>购买物品:</strong><br>
+<%@transaction_order.transaction_items.each do |item|%>
+  <%= link_to item.product.name, product_path(item.product) %>
+  <%= item.number%> 件<br>
+<%end%>
+<br>
+<div>
+  <%= link_to "回到我的订单", transaction_orders_path %>  
+</div>

@@ -1,0 +1,36 @@
+<h1>Transaction orders</h1>
+
+<div id="transaction_orders">
+  <% @transaction_orders.each do |transaction_order| %>
+    <div class = "order_block">
+      <div class = "text_block">
+        <strong>下单人: </strong><%= transaction_order.user.username%><br>
+        <strong>收件人: </strong><%= transaction_order.consignee%><br>
+        <strong>收件地点: </strong><%=transaction_order.delivery_address%><br>
+        <strong>收件电话: </strong><%=transaction_order.delivery_phone%><br>
+        <strong>收件地邮编: </strong><%=transaction_order.delivery_postcode%><br>
+        <strong>价格: </strong><%= transaction_order.transaction_items.inject(0){|total, item| total + item.number * item.product.price}%><br>
+      </div>
+      <div class = "status"><strong>状态: </strong><%=transaction_order.order_status%></div>
+      <div class = "action">
+        <%= link_to "详情", transaction_order_path(transaction_order) %>
+        <%if current_user.role == "admin"%>
+          <%case transaction_order.order_status%>
+          <%when "Unpaid"%>
+            <%= link_to "删除", transaction_order, data: {turbo_method: :delete, turbo_confirm: '确定删除订单?' }, class: :edit_transaction_order %>
+          <%when "Unshipped"%>
+            <%= link_to "发货", transaction_order_path(transaction_order), data: {turbo_method: :PATCH}, class: :edit_transaction_order%>
+          <%end%>
+        <%else%>
+          <%case transaction_order.order_status%>
+          <%when "Unpaid"%>
+            <%= link_to "删除", transaction_order, data: {turbo_method: :delete, turbo_confirm: '确定删除订单?' }, class: :edit_transaction_order %>
+            <%= link_to "付款", transaction_order_path(transaction_order), data: {turbo_method: :PATCH}, class: :edit_transaction_order%>
+          <%when "Shipped"%>
+            <%= link_to "收货", transaction_order_path(transaction_order), data: {turbo_method: :PATCH}, class: :edit_transaction_order%>
+          <%end%>
+        <%end%>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :transaction_items
+  resources :transaction_orders
 
   get 'favorites_items', to: 'favorites_items#index', as: :favorites_items
   post 'favorites_items/:product_id', to: 'favorites_items#create', as: :new_favorites

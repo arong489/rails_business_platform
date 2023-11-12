@@ -15,17 +15,17 @@
       <ul>
         <li><%= link_to "产品", products_path %></li>
         <li><%= link_to "购物车", cart_items_path %></li>
-        <li><a>我的订单</a></li>
+        <li><%= link_to "我的订单", transaction_orders_path %></li>
         <li><%= link_to "收藏", favorites_items_path %></li>
         <%if current_user%>
           <li style = "float: right" class = "bar_user">
-            <%= link_to current_user.username, edit_registration_path(:user) , style: "padding: 5px"%>
+            <%= link_to current_user.username, edit_registration_path(:user) , style: "padding: 5px;"%>
             <%= link_to "logout", destroy_user_session_path, data: {turbo_method: :delete, turbo_confirm: "want to log out?"}, style: "padding: 5px"%>
           </li>
           <%if current_user.avatar.attached?%>
             <li class = "bar_user">
               <a href =<%=edit_registration_path(:user)%> style = "padding: 0">
-                <%= image_tag url_for(current_user.avatar), width: :auto, height: '60px', style: "vertical-align: bottom"%>
+                <%= image_tag url_for(current_user.avatar), style: "vertical-align: bottom; height:0px", id: :nav_avatar%>
               </a>
             </li>
           <%end%>
@@ -37,10 +37,17 @@
       </ul>
     </nav>
 
+    <div id = "nav_holder" style="margin:0; padding:0"></div>
+    
+    <script>
+      var nav_height = document.getElementsByTagName("nav")[0].scrollHeight + 'px'
+      document.getElementById("nav_holder").style.height = nav_height
+      document.getElementById("nav_avatar").style.height = nav_height
+    </script>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    
     
     <%= yield %>
   </body>

@@ -1,0 +1,32 @@
+<div id="<%= dom_id transaction_order %>">
+  <p>
+    <strong>下单人:</strong>
+    <%= transaction_order.user.username %>
+  </p>
+
+  <p>
+    <strong>收件人:</strong>
+    <%= transaction_order.consignee %>
+  </p>
+
+  <p>
+    <strong>收件地址:</strong>
+    <%= transaction_order.delivery_address %>
+  </p>
+
+  <p>
+    <strong>收件电话:</strong>
+    <%= transaction_order.delivery_phone %>
+  </p>
+
+  <p>
+    <strong>收件地邮编:</strong>
+    <%= transaction_order.delivery_postcode %>
+  </p>
+
+  <p>
+    <strong>订单状态:</strong>
+    <%= transaction_order.order_status %>
+  </p>
+
+</div>

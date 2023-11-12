@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transactionOrder: one
+  product: one
+  number: 1
+
+two:
+  transactionOrder: two
+  product: two
+  number: 1

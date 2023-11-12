@@ -1,29 +1,47 @@
 <h1>Cart</h1>
-<%if @cart_items.size > 0%>
-    <% @cart_items.each do |cart_item|%>
-        <div class = "list_cart_block">
-            <div class = "cart_img_block">
-                <%= image_tag url_for(cart_item.product.img) %>
+<%unless @cart_items.empty?%>
+
+    <%= form_tag transaction_orders_path ,onsubmit: "return check_form()" do%>
+        <% @cart_items.each do |cart_item|%>
+            <div class = "list_cart_block">
+                <div class = "cart_img_block">
+                    <%= image_tag url_for(cart_item.product.img), alt: "No img"%>
+                </div>
+                <div class = "cart_text_block">
+                    <%= link_to cart_item.product.name, product_path(cart_item.product), style: "text-decoration: none; color: black; font-size: 3ch;"%><br>
+                    <strong>Price: </strong><span class = "cart_price"><%= cart_item.product.price%></span><br>
+                    <strong>Quantity: </strong><%= number_field_tag "cart_items[#{cart_item.product_id}]", cart_item.quantity, min: 0, style: "width: #{cart_item.quantity.to_s.length + 2}ch", class: :cart_quantity%><br>
+                    于 <%= cart_item.updated_at.strftime("%Y/%m/%d")%> 加入购物车<br>
+                </div>
             </div>
-            <div class = "cart_text_block">
-                <%= cart_item.product.name%><br>
-                <strong>Price: </strong><span class = "cart_price"><%= cart_item.product.price%></span><br>
-                <strong>Quantity: </strong><%= number_field_tag "cart_items[#{cart_item.product_id}]", cart_item.quantity, min: 0, style: "width: #{cart_item.quantity.to_s.length + 2}ch", class: :cart_quantity%><br>
-                于 <%= cart_item.updated_at.strftime("%Y/%m/%d")%> 加入购物车<br>
-            </div>
+        <%end%>
+        <div class = "inf_table">
+            <%= label_tag :consignee, "收件人"%><br>
+            <%= text_field_tag "transaction_order[consignee]", current_user.username, placeHolder: "你的名字"%><br>
+            <%= label_tag :consignee, "收件地址"%><br>
+            <%= text_field_tag "transaction_order[delivery_address]", "", placeHolder: "地址"%><br>
+            <%= label_tag :consignee, "收件手机号"%><br>
+            <%= text_field_tag "transaction_order[delivery_phone]", "", placeHolder: "电话"%><br>
+            <%= label_tag :consignee, "收件地邮编"%><br>
+            <%= text_field_tag "transaction_order[delivery_postcode]", "", placeHolder: "邮编"%><br>
+            <button type="button" id="close_button">确定</button>
+        </div>
+        <div class = "bottom_bar">
+            <strong>总价: </strong><span id="total_price" style = "font-size: xx-large; display: inline-block; padding:10px"></span>
+            <%= submit_tag "生成订单", class: :right_button%>
+            <button type="button" class="right_button">收件信息</button>
         </div>
     <%end%>
-<div class = "bottom_bar">
-    <strong style = "font-size: xx-large">总价: </strong><span id="total_price"></span>
-</div>
-
-
+    <div id = "bottom_bar_holder" style="margin:0; padding:0"></div>
 
 <script>
 var total_price = document.getElementById("total_price")
 var prices = document.getElementsByClassName("cart_price")
 var quantitys =  document.getElementsByClassName("cart_quantity")
 total_price.innerText = sum()
+var bottom_right_button = document.getElementsByClassName("right_button");
+var bottom_bar_height = document.querySelector(".bottom_bar").scrollHeight + 'px';
+bottom_right_button[0].style.height = bottom_right_button[1].style.height = bottom_bar_height;
 for(let i = 0;  i < quantitys.length; i++) {
     quantitys[i].addEventListener('input', function(){
         quantitys[i].style.width = quantitys[i].value.length + 2 + 'ch'
@@ -37,6 +55,47 @@ function sum()
         sum += quantitys[j].value * prices[j].innerText;
     }
     return sum.toFixed(3)
+}
+var inf_table = document.getElementsByClassName("inf_table")[0]
+inf_table.style.bottom = bottom_bar_height;
+bottom_right_button[1].addEventListener('click', function(){
+    if (inf_table.style.display != 'inline-block')
+        inf_table.style.display = 'inline-block';
+    else 
+        inf_table.style.display = 'none';
+});
+document.getElementById("close_button").addEventListener('click', function(){
+    inf_table.style.display = 'none';
+})
+document.getElementById("bottom_bar_holder").style.height = bottom_bar_height
+
+function check_form(){
+    var consignee = document.getElementById("transaction_order_consignee")
+    var delivery_address = document.getElementById("transaction_order_delivery_address")
+    var delivery_phone = document.getElementById("transaction_order_delivery_phone")
+    var delivery_postcode = document.getElementById("transaction_order_delivery_postcode")
+    if (consignee.value.trim() === ""){
+        alert("收件人不能为空")
+        inf_table.style.display = 'inline-block';
+        return false
+    }
+    if (delivery_address.value.trim() === ""){
+        alert("收件地址不能为空")
+        inf_table.style.display = 'inline-block';
+        return false
+    }
+    var reg=/^[1][3,4,5,7,8][0-9]{9}$/;
+    if (!reg.test(delivery_phone.value.trim())) {
+        alert("手机号不正确")
+        inf_table.style.display = 'inline-block';
+        return false;
+    }
+    if (delivery_postcode.value.trim() === ""){
+        alert("邮编不能为空")
+        inf_table.style.display = 'inline-block';
+        return false
+    }
+    return true
 }
 </script>
 

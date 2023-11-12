@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_07_030852) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_10_054633) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -95,6 +95,29 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_030852) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transaction_items", id: false, force: :cascade do |t|
+    t.integer "transaction_order_id", null: false
+    t.integer "product_id", null: false
+    t.integer "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_transaction_items_on_product_id"
+    t.index ["transaction_order_id", "product_id"], name: "index_transaction_items_on_transaction_order_id_and_product_id", unique: true
+    t.index ["transaction_order_id"], name: "index_transaction_items_on_transaction_order_id"
+  end
+
+  create_table "transaction_orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "consignee"
+    t.string "delivery_address"
+    t.string "delivery_phone"
+    t.string "delivery_postcode"
+    t.string "order_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_transaction_orders_on_user_id"
+  end
+
   create_table "types", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -126,4 +149,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_030852) do
   add_foreign_key "products", "designs"
   add_foreign_key "products", "sizes"
   add_foreign_key "products", "types"
+  add_foreign_key "transaction_items", "products"
+  add_foreign_key "transaction_items", "transaction_orders"
+  add_foreign_key "transaction_orders", "users"
 end
