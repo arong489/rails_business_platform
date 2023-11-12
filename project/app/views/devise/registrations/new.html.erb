@@ -31,6 +31,12 @@
     <%= f.file_field :avatar%>
   </div>
 
+  <div>
+    <%= f.label "管理员注册[仅展示用]"%>
+    <%= f.check_box :role, {}, "admin", "user"%>
+  </div>
+
+  <br>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
