@@ -1,5 +1,13 @@
 # buaa rails 2023 final work
 
+## 任务目标
+
+建立一个简易的交易平台，具体要求已经抽象在要求小节了
+
+## 运行
+
+在顶层目录下， 使用 `rails server` 指令
+
 ## 要求
 
 管理员操作
@@ -24,7 +32,6 @@
 ### 实体表
 
 1. users
-
    | property | type    | constrain        |
    | -------- | ------- | ---------------- |
    | id       | integer | primary key      |
@@ -34,7 +41,6 @@
    | email    | string  | not null, unique |
    | phone    | string  | not null, unique |
 2. products
-
    | property     | type    | constrain   |
    | ------------ | ------- | ----------- |
    | id           | integer | primary key |
@@ -42,40 +48,35 @@
    | price        | decimal | not null    |
    | description  | text    |             |
    | img          | blob?   | attach      |
-   | sales_volume | integer | $\ge$ 0     |
+   | sales_volume | integer | $\ge$ 0   |
    | design_id    | integer | foreign key |
    | color_id     | integer | foreign key |
    | size_id      | integer | foreign key |
    | type_id      | integer | foreign key |
 3. designs
-
    | property     | type    | constrain        |
    | ------------ | ------- | ---------------- |
    | id           | integer | primary key      |
    | name         | string  | not null         |
    | sales_volume | integer | virtual property |
 4. colors
-
    | property    | type    | constrain   |
    | ----------- | ------- | ----------- |
    | id          | integer | primary key |
    | rgb         | string  | #rrggbb     |
    | description | text    |             |
 5. sizes
-
    | property    | type    | constrain   |
    | ----------- | ------- | ----------- |
    | id          | integer | primary key |
    | name        | string  | not null    |
    | description | text    |             |
 6. types
-
    | property | type    | constrain   |
    | -------- | ------- | ----------- |
    | id       | integer | primary key |
    | name     | string  | not null    |
 7. transaction_orders
-
    | property          | type    | constrain                            |
    | ----------------- | ------- | ------------------------------------ |
    | id                | integer | primary key                          |
@@ -90,22 +91,19 @@
 ### 实体关系表
 
 1. transaction_items
-
    | property   | type    | constrain   |
    | ---------- | ------- | ----------- |
    | id         | integer | primary key |
    | order_id   | integer | foreign key |
    | product_id | integer | foreign key |
-   | number     | integer | $\ge$ 1     |
+   | number     | integer | $\ge$ 1   |
 2. cart_items
-
    | property   | type    | constrain   |
    | ---------- | ------- | ----------- |
    | user_id    | integer | foreign key |
    | product_id | integer | foreign key |
-   | quantity   | integer | $\ge$ 1     |
+   | quantity   | integer | $\ge$ 1   |
 3. favorites_items
-
    | property   | type    | constrain   |
    | ---------- | ------- | ----------- |
    | user_id    | integer | foreign key |
